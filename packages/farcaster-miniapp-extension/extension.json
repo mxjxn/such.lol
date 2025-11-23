@@ -1,0 +1,47 @@
+{
+  "name": "Farcaster MiniApp Extension",
+  "version": "0.1.0",
+  "description": "View and participate in JokeRace contests directly from Farcaster MiniApps",
+  "author": "JokeRace Community",
+  "homepage": "https://github.com/jk-labs-inc/jokerace",
+  "type": "miniapp",
+  "platform": "farcaster",
+  "features": [
+    "contest-viewer",
+    "user-authentication",
+    "multi-chain-support",
+    "real-time-status",
+    "blockchain-integration"
+  ],
+  "chains": [
+    "ethereum",
+    "base",
+    "optimism",
+    "arbitrum",
+    "polygon"
+  ],
+  "capabilities": {
+    "view_contest": true,
+    "submit_entry": true,
+    "vote": true,
+    "share": true
+  },
+  "urls": {
+    "home": "/",
+    "contest": "/contest/{chain}/{address}",
+    "docs": "https://github.com/jk-labs-inc/jokerace/tree/main/packages/farcaster-miniapp-extension"
+  },
+  "integration": {
+    "sdk": "@farcaster/miniapp-sdk",
+    "blockchain": "viem",
+    "ui": "next.js"
+  },
+  "compliance": {
+    "jokerace_extension_spec": "v1",
+    "standalone_pages": true,
+    "direct_blockchain_access": true,
+    "no_api_dependency": true,
+    "multi_chain": true,
+    "permissionless": true
+  }
+}
