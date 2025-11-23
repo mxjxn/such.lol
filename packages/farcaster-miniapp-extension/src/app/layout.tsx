@@ -6,8 +6,8 @@ import Providers from './providers';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'JokeRace Farcaster MiniApp',
-  description: 'View and participate in JokeRace contests directly from Farcaster',
+  title: 'JokeRace Farcaster Mini App',
+  description: 'View and participate in JokeRace contests directly from Farcaster Mini Apps',
   other: {
     'fc:frame': 'vNext',
   },

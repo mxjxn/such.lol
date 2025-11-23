@@ -1,20 +1,20 @@
-# Farcaster Frame Endpoints
+# Farcaster Mini App Embed Endpoints
 
-This document describes the Farcaster Frame API endpoints that enable sharing contests, submissions, and voting opportunities as interactive embeds on Farcaster.
+This document describes the API endpoints that enable sharing contests, submissions, and voting opportunities as interactive embeds (also known as embeds) on Farcaster. These embeds deep-link directly into the JokeRace Mini App.
 
 ## Overview
 
-Farcaster Frames are interactive embeds that appear in casts with buttons that users can click. This extension provides three types of Frames:
+Farcaster embeds are interactive cards that appear in casts with buttons that users can click. This Mini App extension provides three types of embeds:
 
-1. **Contest Frames** - Share full contests
-2. **Submission Frames** - Share specific submissions
-3. **Voting Frames** - Share voting opportunities
+1. **Contest Embeds** - Share full contests with interactive buttons
+2. **Submission Embeds** - Share specific submissions with voting options
+3. **Voting Embeds** - Share voting opportunities with direct access
 
-All Frames deep link into the JokeRace MiniApp for seamless interaction.
+All embeds use the Farcaster embed protocol (fc:frame meta tags) to deep link into the JokeRace Mini App for seamless interaction.
 
 ---
 
-## Contest Frame
+## Contest Embed
 
 ### Endpoint
 
@@ -24,7 +24,7 @@ GET /api/frame/contest/{chain}/{address}
 
 ### Purpose
 
-Generates a Farcaster Frame for a JokeRace contest with buttons to view, submit, and vote.
+Generates a Farcaster embed for a JokeRace contest with buttons to view, submit, and vote. The embed opens the contest in the Mini App.
 
 ### Example
 
@@ -32,13 +32,13 @@ Generates a Farcaster Frame for a JokeRace contest with buttons to view, submit,
 https://your-miniapp.com/api/frame/contest/base/0x1234567890abcdef...
 ```
 
-### Frame Buttons
+### Embed Buttons
 
-1. **View Contest** - Opens contest page in MiniApp
-2. **Submit Entry** - Opens contest with submit action
-3. **Vote** - Opens contest with vote action
+1. **View Contest** - Opens contest page in Mini App
+2. **Submit Entry** - Opens contest with submit action in Mini App
+3. **Vote** - Opens contest with vote action in Mini App
 
-### Frame Image
+### Embed Image
 
 Dynamically generated OG image showing:
 - Contest name
@@ -48,14 +48,14 @@ Dynamically generated OG image showing:
 
 ### Usage in Farcaster
 
-1. Copy the Frame URL
-2. Paste it into a cast on Warpcast
-3. The cast will render as an interactive Frame
-4. Users can click buttons to open the MiniApp
+1. Copy the embed URL
+2. Paste it into a cast on Warpcast or other Farcaster clients
+3. The cast will render as an interactive embed
+4. Users can click buttons to open the Mini App
 
 ### Response Format
 
-Returns HTML with Farcaster Frame meta tags:
+Returns HTML with Farcaster embed meta tags (using the fc:frame protocol):
 
 ```html
 <meta property="fc:frame" content="vNext" />
@@ -67,7 +67,7 @@ Returns HTML with Farcaster Frame meta tags:
 
 ---
 
-## Submission Frame
+## Submission Embed
 
 ### Endpoint
 
@@ -77,7 +77,7 @@ GET /api/frame/submission/{chain}/{address}/{id}
 
 ### Purpose
 
-Generates a Farcaster Frame for a specific contest submission with voting buttons.
+Generates a Farcaster embed for a specific contest submission with voting buttons that open in the Mini App.
 
 ### Example
 
@@ -85,14 +85,14 @@ Generates a Farcaster Frame for a specific contest submission with voting button
 https://your-miniapp.com/api/frame/submission/base/0x1234.../42
 ```
 
-### Frame Buttons
+### Embed Buttons
 
-1. **Vote For** - Opens submission with vote-for action
-2. **Vote Against** - Opens submission with vote-against action
-3. **View Contest** - Opens parent contest
-4. **Visit** - Opens submission detail page
+1. **Vote For** - Opens submission with vote-for action in Mini App
+2. **Vote Against** - Opens submission with vote-against action in Mini App
+3. **View Contest** - Opens parent contest in Mini App
+4. **Visit** - Opens submission detail page in Mini App
 
-### Frame Image
+### Embed Image
 
 Dynamically generated OG image showing:
 - Submission ID (large)
@@ -108,7 +108,7 @@ Dynamically generated OG image showing:
 
 ### Deep Link Actions
 
-Buttons link to MiniApp with action query params:
+Buttons link to Mini App with action query params:
 
 ```
 {miniapp}/contest/{chain}/{address}/submission/{id}?action=vote-for
@@ -117,7 +117,7 @@ Buttons link to MiniApp with action query params:
 
 ---
 
-## Vote Frame
+## Vote Embed
 
 ### Endpoint
 
@@ -127,7 +127,7 @@ GET /api/frame/vote/{chain}/{address}
 
 ### Purpose
 
-Generates a Farcaster Frame specifically for voting on a contest.
+Generates a Farcaster embed specifically for voting on a contest, with dynamic content based on contest status.
 
 ### Example
 
@@ -135,24 +135,24 @@ Generates a Farcaster Frame specifically for voting on a contest.
 https://your-miniapp.com/api/frame/vote/base/0x1234567890abcdef...
 ```
 
-### Frame Buttons
+### Embed Buttons
 
 **When voting is open:**
-1. **Vote Now (X entries)** - Opens voting interface
-2. **View Contest** - Opens full contest page
+1. **Vote Now (X entries)** - Opens voting interface in Mini App
+2. **View Contest** - Opens full contest page in Mini App
 
 **When voting has ended:**
-1. **View Results** - Opens contest results
-2. **View Contest** - Opens full contest page
+1. **View Results** - Opens contest results in Mini App
+2. **View Contest** - Opens full contest page in Mini App
 
 ### Dynamic Content
 
-The Frame adapts based on:
+The embed adapts based on:
 - Current contest phase (submission vs voting)
 - Number of submissions
 - Time remaining
 
-### Frame Image
+### Embed Image
 
 Shows:
 - Contest name
@@ -170,7 +170,7 @@ Shows:
 GET /api/og/contest/{chain}/{address}
 ```
 
-Generates a 1200x630 image for contest Frames.
+Generates a 1200x630 image for contest embeds (Frame protocol).
 
 **Design:**
 - Purple gradient background (#8A63D2 → #472A91)
@@ -185,7 +185,7 @@ Generates a 1200x630 image for contest Frames.
 GET /api/og/submission/{chain}/{address}/{id}
 ```
 
-Generates a 1200x630 image for submission Frames.
+Generates a 1200x630 image for submission embeds (Frame protocol).
 
 **Design:**
 - Purple gradient background (reversed)
@@ -209,67 +209,67 @@ Generates a 1200x630 image for submission Frames.
 ### 1. Share a Contest
 
 ```javascript
-// Get contest Frame URL
-const frameUrl = `https://your-miniapp.com/api/frame/contest/base/0x123...`;
+// Get contest Embed URL
+const embedUrl = `https://your-miniapp.com/api/frame/contest/base/0x123...`;
 
 // Post to Farcaster (via Neynar SDK or API)
 await neynarClient.publishCast({
   text: "Check out this contest!",
-  embeds: [frameUrl],
+  embeds: [embedUrl],
 });
 ```
 
 ### 2. Share a Submission
 
 ```javascript
-const frameUrl = `https://your-miniapp.com/api/frame/submission/base/0x123.../5`;
+const embedUrl = `https://your-miniapp.com/api/frame/submission/base/0x123.../5`;
 
 await neynarClient.publishCast({
   text: "Vote on my submission!",
-  embeds: [frameUrl],
+  embeds: [embedUrl],
 });
 ```
 
 ### 3. Promote Voting
 
 ```javascript
-const frameUrl = `https://your-miniapp.com/api/frame/vote/base/0x123...`;
+const embedUrl = `https://your-miniapp.com/api/frame/vote/base/0x123...`;
 
 await neynarClient.publishCast({
   text: "Voting is now open! Cast your votes 🗳️",
-  embeds: [frameUrl],
+  embeds: [embedUrl],
 });
 ```
 
 ---
 
-## Frame Specification Compliance
+## Embed Specification Compliance
 
-All Frames follow the [Farcaster Frame Specification](https://docs.farcaster.xyz/reference/frames/spec):
+All embeds follow the [Farcaster Embed Specification](https://docs.farcaster.xyz/reference/frames/spec):
 
 ✅ **fc:frame** = "vNext"
 ✅ **fc:frame:image** - Dynamic OG images
 ✅ **fc:frame:image:aspect_ratio** - 1.91:1
 ✅ **fc:frame:button:{idx}** - Up to 4 buttons
 ✅ **fc:frame:button:{idx}:action** - "link" actions
-✅ **fc:frame:button:{idx}:target** - Deep links to MiniApp
+✅ **fc:frame:button:{idx}:target** - Deep links to Mini App
 
 ---
 
-## Testing Frames
+## Testing embeds
 
 ### 1. Using Warpcast
 
-1. Copy a Frame URL
+1. Copy a Embed URL
 2. Paste into a cast on Warpcast
 3. Warpcast will fetch and render the Frame
 4. Click buttons to test deep links
 
-### 2. Using Frame Validator
+### 2. Using Embed Validator
 
 Visit: https://warpcast.com/~/developers/frames
 
-Paste your Frame URL to preview and validate.
+Paste your Embed URL to preview and validate.
 
 ### 3. Local Testing
 
@@ -277,7 +277,7 @@ Paste your Frame URL to preview and validate.
 # Start the extension
 npm run dev
 
-# Access Frame URLs directly
+# Access Embed URLs directly
 open http://localhost:3001/api/frame/contest/base/0x123...
 ```
 
@@ -288,7 +288,7 @@ open http://localhost:3001/api/frame/contest/base/0x123...
 ### Optional Configuration
 
 ```env
-# Base URL for Frame URLs (defaults to localhost in dev)
+# Base URL for Embed URLs (defaults to localhost in dev)
 NEXT_PUBLIC_BASE_URL=https://your-miniapp.com
 ```
 
@@ -302,7 +302,7 @@ NEXT_PUBLIC_BASE_URL=https://jokerace-miniapp.vercel.app
 
 ---
 
-## Frame URL Patterns
+## Embed URL Patterns
 
 ### Contest Frame
 ```
@@ -335,12 +335,12 @@ NEXT_PUBLIC_BASE_URL=https://jokerace-miniapp.vercel.app
 
 ### Cache Headers
 
-**Contest & Submission Frames:**
+**Contest & Submission embeds:**
 ```
 Cache-Control: public, max-age=300  # 5 minutes
 ```
 
-**Vote Frames:**
+**Vote embeds:**
 ```
 Cache-Control: public, max-age=60   # 1 minute (more dynamic)
 ```
@@ -348,7 +348,7 @@ Cache-Control: public, max-age=60   # 1 minute (more dynamic)
 ### Why Caching Matters
 
 - Reduces blockchain queries
-- Faster Frame loading
+- Faster Embed loading
 - Better user experience
 - Lower infrastructure costs
 
@@ -360,9 +360,9 @@ All endpoints include error handling:
 
 1. **Invalid Chain** - Returns error Frame
 2. **Contract Read Failure** - Returns error Frame
-3. **Missing Data** - Returns error Frame with details
+3. **Missing Data** - Returns error Embed with details
 
-Error Frames display:
+Error embeds display:
 - Error message
 - Chain and address for debugging
 - Fallback image
@@ -376,14 +376,14 @@ Error Frames display:
 ```typescript
 // In your app
 const shareContest = async (chain: string, address: string) => {
-  const frameUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/frame/contest/${chain}/${address}`;
+  const embedUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/frame/contest/${chain}/${address}`;
 
   // Copy to clipboard
-  await navigator.clipboard.writeText(frameUrl);
+  await navigator.clipboard.writeText(embedUrl);
 
   // Or auto-post to Farcaster
   window.open(
-    `https://warpcast.com/~/compose?text=${encodeURIComponent('Check out this contest!')}&embeds[]=${encodeURIComponent(frameUrl)}`
+    `https://warpcast.com/~/compose?text=${encodeURIComponent('Check out this contest!')}&embeds[]=${encodeURIComponent(embedUrl)}`
   );
 };
 ```
@@ -396,10 +396,10 @@ const shareSubmission = async (
   address: string,
   id: string
 ) => {
-  const frameUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/frame/submission/${chain}/${address}/${id}`;
+  const embedUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/frame/submission/${chain}/${address}/${id}`;
 
   window.open(
-    `https://warpcast.com/~/compose?embeds[]=${encodeURIComponent(frameUrl)}`
+    `https://warpcast.com/~/compose?embeds[]=${encodeURIComponent(embedUrl)}`
   );
 };
 ```
@@ -414,9 +414,9 @@ In production, never use localhost. Set `NEXT_PUBLIC_BASE_URL` properly.
 
 ### 2. Test Before Sharing
 
-Use the Warpcast Frame validator before sharing widely.
+Use the Warpcast Embed validator before sharing widely.
 
-### 3. Monitor Frame Performance
+### 3. Monitor Embed Performance
 
 Check:
 - Image load times
@@ -431,7 +431,7 @@ Check:
 
 ### 5. Descriptive Text
 
-Include context when posting Frame URLs:
+Include context when posting Embed URLs:
 - What the contest is about
 - Why users should participate
 - Deadlines or important info
@@ -440,12 +440,12 @@ Include context when posting Frame URLs:
 
 ## Troubleshooting
 
-### Frame Not Rendering
+### Embed Not Rendering
 
 1. Validate URL is publicly accessible
 2. Check meta tags are present
 3. Verify image URL works
-4. Test with Frame validator
+4. Test with Embed validator
 
 ### Images Not Loading
 
@@ -457,7 +457,7 @@ Include context when posting Frame URLs:
 ### Buttons Not Working
 
 1. Verify target URLs are absolute
-2. Check MiniApp URLs are accessible
+2. Check Mini App URLs are accessible
 3. Test deep links manually
 4. Ensure action type is "link"
 
@@ -465,11 +465,11 @@ Include context when posting Frame URLs:
 
 ## Resources
 
-- [Farcaster Frame Spec](https://docs.farcaster.xyz/reference/frames/spec)
-- [Warpcast Frame Validator](https://warpcast.com/~/developers/frames)
+- [Farcaster Embed Spec](https://docs.farcaster.xyz/reference/frames/spec)
+- [Warpcast Embed Validator](https://warpcast.com/~/developers/frames)
 - [Next.js ImageResponse](https://nextjs.org/docs/app/api-reference/functions/image-response)
 - [JokeRace Extension Docs](../README.md)
 
 ---
 
-*Frames enable viral sharing of JokeRace contests on Farcaster! 🚀*
+*embeds enable viral sharing of JokeRace contests on Farcaster! 🚀*

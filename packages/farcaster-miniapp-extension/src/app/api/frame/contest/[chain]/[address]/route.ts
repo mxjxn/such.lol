@@ -65,8 +65,8 @@ export async function GET(
     const promptParts = (prompt as string).split('|');
     const description = promptParts[2] || prompt;
 
-    // Build Frame HTML
-    const frameImage = `${baseUrl}/api/og/contest/${chain}/${address}`;
+    // Build Farcaster Embed HTML (using Frame protocol)
+    const embedImage = `${baseUrl}/api/og/contest/${chain}/${address}`;
     const contestUrl = `${baseUrl}/contest/${chain}/${address}`;
 
     const html = `
@@ -80,14 +80,14 @@ export async function GET(
     <!-- Open Graph -->
     <meta property="og:title" content="${name}" />
     <meta property="og:description" content="${description.substring(0, 200)}" />
-    <meta property="og:image" content="${frameImage}" />
+    <meta property="og:image" content="${embedImage}" />
 
-    <!-- Farcaster Frame -->
+    <!-- Farcaster Embed (Frame Protocol) -->
     <meta property="fc:frame" content="vNext" />
-    <meta property="fc:frame:image" content="${frameImage}" />
+    <meta property="fc:frame:image" content="${embedImage}" />
     <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
 
-    <!-- Frame Buttons -->
+    <!-- Embed Buttons (link to Mini App) -->
     <meta property="fc:frame:button:1" content="View Contest" />
     <meta property="fc:frame:button:1:action" content="link" />
     <meta property="fc:frame:button:1:target" content="${contestUrl}" />
@@ -103,7 +103,7 @@ export async function GET(
   <body>
     <h1>${name}</h1>
     <p>${description}</p>
-    <a href="${contestUrl}">View Contest in MiniApp</a>
+    <a href="${contestUrl}">View Contest in Mini App</a>
   </body>
 </html>
     `.trim();
@@ -115,20 +115,20 @@ export async function GET(
       },
     });
   } catch (error) {
-    console.error('Error generating contest frame:', error);
+    console.error('Error generating contest embed:', error);
 
     const errorHtml = `
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Contest Frame Error</title>
+    <title>Contest Embed Error</title>
     <meta property="fc:frame" content="vNext" />
     <meta property="fc:frame:image" content="${baseUrl}/error.png" />
   </head>
   <body>
     <h1>Error Loading Contest</h1>
-    <p>Failed to load contest frame for ${chain}/${address}</p>
+    <p>Failed to load contest embed for ${chain}/${address}</p>
   </body>
 </html>
     `.trim();
