@@ -112,14 +112,66 @@ The main JokeRace app also includes Farcaster integration components:
 NEXT_PUBLIC_BASE_URL=https://such.lol  # For Frame URLs in production
 ```
 
+## 🏆 NFT Winner Minting Extension (Implemented)
+
+Immortalize winning contest submissions as 1/1 NFTs using Manifold Creator Core contracts.
+
+### Overview
+
+The NFT Winner Minting Extension enables contest creators to mint winning submissions as unique NFTs. Each winner receives a 1/1 NFT containing their submission content, ranking, and contest metadata.
+
+**Package:** `packages/nft-winner-minting` (Port 3002)
+
+### Features
+
+- ✅ **Manifold Creator Core Integration** - Battle-tested NFT infrastructure
+- ✅ **1/1 NFT Minting** - Each winner gets a unique NFT
+- ✅ **Multi-Chain Support** - Ethereum, Base, Optimism, Arbitrum, Polygon
+- ✅ **Batch Minting** - Mint multiple winners in one transaction
+- ✅ **Rich On-Chain Metadata** - Ranking, submission content, author info
+- ✅ **Permission-Based** - Only creator admins can authorize and mint
+- ✅ **Duplicate Protection** - Rankings can only be minted once
+
+### How It Works
+
+1. **Contest Creator** deploys a Manifold Creator contract (or uses existing)
+2. **Authorize Contest** - Enable NFT minting for a specific contest
+3. **Set Max Winners** - Specify how many top winners can be minted
+4. **Mint Winners** - Select rankings (e.g., #1, #2, #3) and mint as 1/1 NFTs
+5. **Winners Receive NFTs** - Each winner's wallet receives their unique NFT
+
+### Tech Stack
+
+- **Smart Contracts**: Solidity 0.8.19 + Manifold Creator Core
+- **Frontend**: Next.js 14, Wagmi, RainbowKit
+- **Blockchain**: Viem for contract interactions
+- **Styling**: TailwindCSS
+
+### Usage
+
+```bash
+cd packages/nft-winner-minting
+npm install
+npm run dev  # Runs on port 3002
+```
+
+**Requirements:**
+- Manifold Creator contract (create at [studio.manifold.xyz](https://studio.manifold.xyz/))
+- WinnerMinter.sol deployed to your chain
+- Admin access to creator contract
+
+See the [NFT Minting Extension README](packages/nft-winner-minting/README.md) for detailed documentation.
+
 ## 🚧 Features to Build
 
 - **Submission Creation UI** - Interface for creating submissions in MiniApp
 - **Voting Interface** - Full voting UI with transaction signing
 - **Submission Gallery** - Browse and filter submissions
 - **Vote Leaderboard** - Real-time ranking and results
+- **NFT Artwork Generation** - Custom visuals for minted NFTs
+- **IPFS Metadata Storage** - Decentralized metadata hosting
 - Specific contest formats (specific form types)
-- Expanded rewards (NFTs, DEGEN, multiple winners/rewards, etc.)
+- Expanded rewards (DEGEN, multiple winners/rewards, etc.)
 - Contest notifications for phase changes
 
 ---
@@ -139,13 +191,16 @@ One other fun thing: you can find v1 at [jokedao.jokedao.io](https://jokedao.jok
 
 ## Quick Start
 
-This monorepo contains two main applications:
+This monorepo contains three main applications:
 
 ### 1. **Main JokeRace App** (`packages/react-app-revamp`)
-The primary JokeRace web application.
+The primary JokeRace web application (port 3000).
 
 ### 2. **Farcaster MiniApp Extension** (`packages/farcaster-miniapp-extension`)
-Standalone Farcaster integration (runs on port 3001).
+Standalone Farcaster integration (port 3001).
+
+### 3. **NFT Winner Minting Extension** (`packages/nft-winner-minting`)
+Mint winning submissions as 1/1 NFTs using Manifold (port 3002).
 
 ## Setup Instructions
 
@@ -203,9 +258,9 @@ http://localhost:3001/contest/{chain}/{address}
 
 For production deployment, set `NEXT_PUBLIC_BASE_URL` in `.env` to your domain for proper Frame URL generation.
 
-### Running Both Apps Simultaneously
+### Running All Apps Simultaneously
 
-To run both the main app and Farcaster MiniApp at the same time:
+To run all three applications at the same time:
 
 **Terminal 1:**
 ```bash
@@ -214,7 +269,12 @@ yarn dev  # Main app on :3000
 
 **Terminal 2:**
 ```bash
-cd packages/farcaster-miniapp-extension && npm run dev  # MiniApp on :3001
+cd packages/farcaster-miniapp-extension && npm run dev  # Farcaster MiniApp on :3001
+```
+
+**Terminal 3:**
+```bash
+cd packages/nft-winner-minting && npm run dev  # NFT Minting on :3002
 ```
 
 ## Repository Structure
@@ -222,7 +282,7 @@ cd packages/farcaster-miniapp-extension && npm run dev  # MiniApp on :3001
 ```
 such.lol/
 ├── packages/
-│   ├── react-app-revamp/          # Main JokeRace web app
+│   ├── react-app-revamp/          # Main JokeRace web app (port 3000)
 │   │   ├── app/                   # Next.js app router
 │   │   ├── components/            # React components
 │   │   │   ├── FarcasterProvider/ # Farcaster SDK context provider
@@ -245,6 +305,21 @@ such.lol/
 │   │       │   └── page.tsx       # Home page
 │   │       └── hooks/
 │   │           └── useContestData.ts # Blockchain data fetching
+│   │
+│   ├── nft-winner-minting/        # NFT Winner Minting (port 3002)
+│   │   └── src/
+│   │       ├── app/               # Next.js app
+│   │       ├── contracts/         # Smart contracts
+│   │       │   └── WinnerMinter.sol  # Manifold extension contract
+│   │       ├── components/        # React components
+│   │       │   ├── ContestInput.tsx  # Contest configuration
+│   │       │   ├── WinnerList.tsx    # Display winners
+│   │       │   └── MintingInterface.tsx # Minting UI
+│   │       ├── hooks/
+│   │       │   └── useContestWinners.ts # Fetch winners
+│   │       └── lib/
+│   │           ├── wagmi.ts       # Wagmi configuration
+│   │           └── contracts.ts   # Contract ABIs and addresses
 │   │
 │   └── forge/                     # Smart contracts (Foundry)
 │       └── src/
