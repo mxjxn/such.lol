@@ -1,6 +1,6 @@
-# JokeRace Farcaster MiniApp Extension
+# JokeRace Farcaster Mini App Extension
 
-A JokeRace extension that enables users to view and participate in contests directly from Farcaster MiniApps.
+A JokeRace extension that enables users to view and participate in contests directly from Farcaster Mini Apps.
 
 ## Overview
 
@@ -16,12 +16,13 @@ This extension brings JokeRace contests into the Farcaster ecosystem, allowing u
 
 ### ✅ Implemented
 
-- **Farcaster MiniApp Integration** - Full SDK integration with `@farcaster/miniapp-sdk`
+- **Farcaster Mini App Integration** - Full SDK integration with `@farcaster/miniapp-sdk` (v0.2.1)
 - **Contest Viewer** - Display contest details from blockchain
 - **Multi-Chain Support** - Ethereum, Base, Optimism, Arbitrum, Polygon
 - **User Context** - Automatic Farcaster profile integration
 - **Real-time Status** - Live contest phase detection (submission/voting)
 - **Direct Blockchain Queries** - No API needed, reads directly from smart contracts
+- **Shareable Embeds** - Create interactive cast embeds that deep-link to the Mini App
 
 ### 🚧 Future Enhancements
 
@@ -30,7 +31,6 @@ This extension brings JokeRace contests into the Farcaster ecosystem, allowing u
 - Submission browsing
 - Vote tallying and leaderboards
 - Notifications for contest phases
-- Deep linking from Farcaster Frames
 
 ## Architecture
 
@@ -39,7 +39,7 @@ Built as a standalone Next.js 14 application following JokeRace extension guidel
 ### Technology Stack
 
 - **Next.js 14** - App Router for modern React patterns
-- **@farcaster/miniapp-sdk** - Official Farcaster MiniApp integration
+- **@farcaster/miniapp-sdk (v0.2.1)** - Official Farcaster Mini App integration
 - **Viem** - Lightweight blockchain interaction library
 - **TailwindCSS** - Utility-first styling
 - **TypeScript** - Type-safe development
@@ -91,12 +91,16 @@ npm start
 
 ## Usage
 
-### As a Farcaster MiniApp
+### As a Farcaster Mini App
 
-1. Open the extension URL in a Farcaster client
-2. Your Farcaster profile will be automatically detected
+1. Open the extension URL in a Farcaster client that supports Mini Apps
+2. Your Farcaster profile will be automatically detected via the SDK
 3. Enter a JokeRace contest URL or navigate directly to `/contest/{chain}/{address}`
 4. View contest details, submit entries, and vote
+
+### Sharing via Embeds
+
+This extension also provides shareable embed endpoints (using the Farcaster embed protocol) that can be posted in casts. See [EMBEDS.md](./EMBEDS.md) for details.
 
 ### URL Format
 

@@ -100,7 +100,7 @@ Comprehensive guide to blockchain integration with JokeRace contracts.
 ### In Parent Directory
 
 **[README.md](../README.md)** - Project overview and quick start
-**[FRAMES.md](../FRAMES.md)** - Farcaster Frame API reference
+**[EMBEDS.md](../EMBEDS.md)** - Farcaster embed API reference (using Frame protocol)
 **[extension.json](../extension.json)** - Extension manifest
 
 ### In Repository Root

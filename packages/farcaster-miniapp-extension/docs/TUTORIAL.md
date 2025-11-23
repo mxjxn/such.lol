@@ -343,7 +343,7 @@ export default function Providers({ children }) {
 - Profile picture URL
 - Automatic authentication
 
-#### Layer 2: Farcaster Frames
+#### Layer 2: Farcaster embeds (Frame protocol)
 
 **What:** Interactive embeds in casts with clickable buttons
 
@@ -404,7 +404,7 @@ export async function GET(request, { params }) {
 }
 ```
 
-### How Mini Apps and Frames Work Together
+### How Mini Apps and Embeds Work Together
 
 ```
 ┌─────────────────────────────────────────────────┐

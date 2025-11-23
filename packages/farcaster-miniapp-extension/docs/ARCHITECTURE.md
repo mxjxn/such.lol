@@ -41,7 +41,7 @@ packages/farcaster-miniapp-extension/
 ├── src/
 │   ├── app/                        # Next.js App Router
 │   │   ├── api/                    # API Routes
-│   │   │   ├── frame/             # Frame HTML endpoints
+│   │   │   ├── frame/             # Embed HTML endpoints (Frame protocol)
 │   │   │   │   ├── contest/
 │   │   │   │   │   └── [chain]/[address]/route.ts
 │   │   │   │   ├── submission/
@@ -71,7 +71,7 @@ packages/farcaster-miniapp-extension/
 │   └── ARCHITECTURE.md            # This file
 ├── public/                         # Static assets
 ├── extension.json                  # Extension manifest
-├── FRAMES.md                       # Frame API docs
+├── EMBEDS.md                       # Embed API docs
 ├── README.md                       # Project readme
 └── package.json                    # Dependencies
 ```
@@ -215,20 +215,20 @@ export function useContestData(chain: string, address: string) {
 
 ---
 
-### 3. Frame Endpoints (`src/app/api/frame/*`)
+### 3. Embed Endpoints (`src/app/api/frame/*`)
 
-**Purpose:** Generate Farcaster Frame HTML for sharing
+**Purpose:** Generate Farcaster embed HTML for sharing (using Frame protocol)
 
 **Responsibilities:**
 - Accept dynamic route parameters
 - Query blockchain for contest data
-- Generate Frame-compliant HTML
+- Generate embed-compliant HTML (Frame protocol)
 - Return proper headers
 - Handle errors gracefully
 
 **Request Flow:**
 ```
-User shares Frame URL on Farcaster
+User shares embed URL on Farcaster
   ↓
 Farcaster fetches URL
   ↓
@@ -236,13 +236,13 @@ Next.js API route handler executes
   ↓
 Queries blockchain for data
   ↓
-Builds HTML with Frame meta tags
+Builds HTML with Frame protocol meta tags
   ↓
 Returns HTML response
   ↓
 Farcaster parses meta tags
   ↓
-Renders Frame in cast
+Renders embed in cast
 ```
 
 **Code Pattern:**
@@ -290,7 +290,7 @@ export async function GET(
 - Server-side rendering for meta tags
 - Dynamic data from blockchain
 - Cacheable responses
-- Standards-compliant Frames
+- Standards-compliant embeds
 
 ---
 
