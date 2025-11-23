@@ -1,9 +1,5 @@
 # Such.lol
 
-[Such.lol](https://such.lol) will be the home for Farcaster-centric jokeraces on degen L3
-
-Jokerace for Degen L3 with comprehensive Farcaster integration.
-
 ## 🎉 Farcaster Integration (Implemented)
 
 Such.lol features full Farcaster integration with both **MiniApp** and **Frames** support, enabling seamless contest participation directly from Farcaster.
