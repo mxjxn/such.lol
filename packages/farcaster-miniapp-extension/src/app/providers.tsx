@@ -35,8 +35,8 @@ const Providers: FC<ProvidersProps> = ({ children }) => {
         // Initialize Farcaster SDK
         await sdk.actions.ready();
 
-        // Get user context from SDK
-        const context = sdk.context;
+        // Get user context from SDK (await since context is now a Promise)
+        const context = await sdk.context;
         if (context?.user) {
           setUser({
             fid: context.user.fid,
