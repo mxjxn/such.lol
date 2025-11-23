@@ -1,0 +1,27 @@
+{
+  "name": "ERC-20 Mint Extension",
+  "version": "0.1.0",
+  "type": "token-mint",
+  "platform": "base",
+  "description": "Mints the winning submission from a JokeRace contest as an ERC-20 token using Clanker SDK",
+  "features": [
+    "contest-winner-detection",
+    "erc20-token-minting",
+    "clanker-integration",
+    "base-blockchain",
+    "uniswap-liquidity"
+  ],
+  "compliance": {
+    "jokerace_extension_spec": "v1",
+    "standalone_pages": true,
+    "direct_blockchain_access": true,
+    "no_api_dependency": true,
+    "multi_chain": false,
+    "permissionless": true
+  },
+  "blockchain": {
+    "primary_chain": "base",
+    "token_standard": "ERC-20",
+    "deployment_method": "clanker-sdk"
+  }
+}
